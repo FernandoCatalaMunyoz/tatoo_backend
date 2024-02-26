@@ -23,7 +23,8 @@ export class Services1708970594764 implements MigrationInterface {
             type: "text",
           },
         ],
-      })
+      }),
+      true
     );
   }
 
