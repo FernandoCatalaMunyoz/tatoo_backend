@@ -8,6 +8,7 @@ import { Appointments1708972222075 } from "./migrations/1708972222075-appointmen
 import { Role } from "../models/Role";
 import { User } from "../models/User";
 import { Service } from "../models/Service";
+import { Appointment } from "../models/Appointment";
 
 export const AppDataSource = new DataSource({
   type: "mysql",
@@ -16,7 +17,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USER || "root",
   password: "1234",
   database: process.env.DB_DATABASE || "test",
-  entities: [Role, User, Service],
+  entities: [Role, User, Service, Appointment],
   migrations: [
     Roles1708969948662,
     Services1708970594764,
