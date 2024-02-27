@@ -7,6 +7,7 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Service } from "./Service";
+import { User } from "./User";
 
 @Entity()
 export class Appointment extends BaseEntity {
@@ -19,4 +20,8 @@ export class Appointment extends BaseEntity {
   @ManyToOne(() => Service, (service) => service.appointments)
   @JoinColumn({ name: "service_id" })
   service!: Service;
+
+  @ManyToOne(() => User, (user) => user.appointment)
+  @JoinColumn({ name: "user_id" })
+  user!: User;
 }
