@@ -10,6 +10,7 @@ import {
   updateRole,
 } from "./controllers/roleController";
 import { register } from "./controllers/authControllers";
+import { getUsers } from "./controllers/userController";
 
 const app: Application = express();
 
@@ -38,7 +39,8 @@ app.post("/api/users", register);
 
 //roles routes
 
-app.get("/api/roles", getRoles);
 app.post("/api/roles", createRole);
-app.put("/api/roles/:id", updateRole); //roles:id es un parametro de ruta
-app.delete("/api/roles:id", deleteRole);
+
+//user routes
+
+app.get("/api/users", getUsers);

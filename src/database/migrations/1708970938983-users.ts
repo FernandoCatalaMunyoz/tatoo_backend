@@ -35,6 +35,22 @@ export class Users1708970938983 implements MigrationInterface {
             length: "255",
           },
           {
+            name: "created_at",
+            type: "timestamp",
+            default: "now()",
+          },
+          {
+            name: "updated_at",
+            type: "timestamp",
+            default: "now()",
+            onUpdate: "now()",
+          },
+          {
+            name: "is_active",
+            type: "boolean",
+            default: true,
+          },
+          {
             name: "role_id",
             type: "int",
             isNullable: true,
