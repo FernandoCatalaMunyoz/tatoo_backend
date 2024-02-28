@@ -18,16 +18,16 @@ export class User extends BaseEntity {
   id!: number;
 
   @Column({ name: "first_name" })
-  firstName!: "string";
+  firstName!: string;
 
   @Column({ name: "last_name" })
-  lastName!: "string";
+  lastName!: string;
 
   @Column({ name: "email" })
-  email!: "string";
+  email!: string;
 
-  @Column({ name: "password_hash" })
-  passwordHash!: "string";
+  @Column({ name: "password" })
+  password_hash!: string;
 
   @ManyToOne(() => Role, (role) => role.users)
   @JoinColumn({ name: "role_id" })

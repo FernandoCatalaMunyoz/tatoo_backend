@@ -8,7 +8,8 @@ import {
   deleteRole,
   getRoles,
   updateRole,
-} from "./controllers/roles";
+} from "./controllers/roleController";
+import { register } from "./controllers/authControllers";
 
 const app: Application = express();
 
@@ -31,9 +32,13 @@ const startServer = () => {
 
 startServer();
 
+//authentication routes
+
+app.post("/api/users", register);
+
 //roles routes
 
-app.get("/roles", getRoles);
-app.post("/roles", createRole);
-app.put("/roles/:id", updateRole); //roles:id es un parametro de ruta
-app.delete("/roles", deleteRole);
+app.get("/api/roles", getRoles);
+app.post("/api/roles", createRole);
+app.put("/api/roles/:id", updateRole); //roles:id es un parametro de ruta
+app.delete("/api/roles:id", deleteRole);

@@ -13,7 +13,7 @@ export class Role extends BaseEntity {
   id!: number;
 
   @Column({ name: "name" })
-  nanme!: string;
+  name!: string;
 
   @OneToMany(() => User, (user) => user.role)
   users!: User[];
