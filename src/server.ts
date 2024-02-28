@@ -3,14 +3,10 @@ import dotenv from "dotenv";
 dotenv.config();
 import { AppDataSource } from "./database/db";
 import { error } from "console";
-import {
-  createRole,
-  deleteRole,
-  getRoles,
-  updateRole,
-} from "./controllers/roleController";
+import { createRole } from "./controllers/roleController";
 import { register } from "./controllers/authControllers";
 import {
+  deleteUserById,
   getUserById,
   getUsers,
   updateUserById,
@@ -51,3 +47,4 @@ app.post("/api/roles", createRole);
 app.get("/api/users", getUsers);
 app.get("/api/users/:id", getUserById);
 app.put("/api/users/:id", updateUserById);
+app.delete("/api/users/:id", deleteUserById);
