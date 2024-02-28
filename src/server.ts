@@ -10,7 +10,11 @@ import {
   updateRole,
 } from "./controllers/roleController";
 import { register } from "./controllers/authControllers";
-import { getUserById, getUsers } from "./controllers/userController";
+import {
+  getUserById,
+  getUsers,
+  updateUserById,
+} from "./controllers/userController";
 import { User } from "./models/User";
 
 const app: Application = express();
@@ -46,3 +50,4 @@ app.post("/api/roles", createRole);
 
 app.get("/api/users", getUsers);
 app.get("/api/users/:id", getUserById);
+app.put("/api/users/:id", updateUserById);

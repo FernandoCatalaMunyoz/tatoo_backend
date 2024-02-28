@@ -37,7 +37,7 @@ export const getUserById = async (req: Request, res: Response) => {
       id: parseInt(userId),
     });
     if (!userId) {
-      res.status(404).json({
+      return res.status(404).json({
         succes: true,
         message: "User not found",
       });
@@ -53,6 +53,54 @@ export const getUserById = async (req: Request, res: Response) => {
       success: false,
       message: "User cant be retrieved",
       error: error,
+    });
+  }
+};
+
+//ACTUALIZAR DATO USUARIO POR ID
+
+export const updateUserById = async (req: Request, res: Response) => {
+  try {
+    const userId = req.params.id;
+    const name = req.body.first_name;
+    const email = req.body.email;
+    const user = await User.findOneBy({
+      id: parseInt(userId),
+    });
+    if (!user) {
+      return res.status(201).json({
+        succes: true,
+        message: "User not found",
+        data: user,
+      });
+    }
+    const validEmail = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+    if (!validEmail.test(email)) {
+      return res.status(400).json({
+        success: false,
+        message: "format email invalid",
+      });
+    }
+
+    const userUpdate = await User.update(
+      {
+        id: parseInt(userId),
+      },
+      {
+        firstName: name,
+        email: email,
+      }
+    );
+
+    return res.status(201).json({
+      succes: true,
+      message: "User retrieved succesfully",
+      data: userUpdate,
+    });
+  } catch (error) {
+    res.status(201).json({
+      succes: true,
+      message: "User retrieved succesfully",
     });
   }
 };
