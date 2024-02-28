@@ -7,7 +7,7 @@ export const register = async (req: Request, res: Response) => {
       const name = req.body.first_name;
       const last_name = req.body.last_name;
       const email = req.body.email;
-      const password = req.body.password_hash;
+      const password = req.body.password;
 
       if (name.length > 255) {
         return res.status(400).json({
@@ -49,7 +49,7 @@ export const register = async (req: Request, res: Response) => {
         firstName: name,
         lastName: last_name,
         email: email,
-        password_hash: passwordEncrypted,
+        password: passwordEncrypted,
         role: { id: 1 },
       }).save();
 
