@@ -32,9 +32,21 @@ export const getUsers = async (req: Request, res: Response) => {
 
 export const getUserById = async (req: Request, res: Response) => {
   try {
+    const userId = req.params.id;
+    const user = await User.findOneBy({
+      id: parseInt(userId),
+    });
+    if (!userId) {
+      res.status(404).json({
+        succes: true,
+        message: "User not found",
+      });
+    }
+
     res.status(201).json({
       succes: true,
       message: "User retrieved succesfully",
+      data: user,
     });
   } catch (error) {
     res.status(500).json({
