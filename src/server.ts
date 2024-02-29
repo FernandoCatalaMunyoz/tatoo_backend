@@ -4,7 +4,7 @@ dotenv.config();
 import { AppDataSource } from "./database/db";
 import { error } from "console";
 import { createRole } from "./controllers/roleController";
-import { register } from "./controllers/authControllers";
+import { login, register } from "./controllers/authControllers";
 import {
   deleteUserById,
   getUserById,
@@ -36,7 +36,8 @@ startServer();
 
 //authentication routes
 
-app.post("/api/users", register);
+app.post("/api/auth/register", register);
+app.post("/api/auth/login", login);
 
 //roles routes
 

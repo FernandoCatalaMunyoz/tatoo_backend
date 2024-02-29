@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import { User } from "../models/User";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
+//REGISTER
 export const register = async (req: Request, res: Response) => {
   try {
     {
@@ -42,8 +45,6 @@ export const register = async (req: Request, res: Response) => {
         });
       }
       const passwordEncrypted = bcrypt.hashSync(password, 8);
-      //comprobamos que se genera la contraseña encriptada
-      console.log(passwordEncrypted);
 
       const newUser = await User.create({
         firstName: name,
@@ -63,6 +64,85 @@ export const register = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: "User cant be register",
+      error: error,
+    });
+  }
+};
+
+//LOGIN
+
+export const login = async (req: Request, res: Response) => {
+  try {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    if (!email || !password) {
+      return res.status(400).json({
+        succes: false,
+        message: "Email and password are needed",
+      });
+    }
+    const validEmail = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+    if (!validEmail.test(email)) {
+      return res.status(400).json({
+        success: false,
+        message: "format email invalid",
+      });
+    }
+
+    const user = await User.findOne({
+      where: {
+        email: email,
+      },
+      relations: {
+        role: true,
+      },
+      select: {
+        id: true,
+        password: true,
+        email: true,
+        role: {
+          id: true,
+          name: true,
+        },
+      },
+    });
+    console.log(user);
+
+    if (!user) {
+      return res.status(400).json({
+        succes: false,
+        message: "email or password invalid",
+      });
+    }
+
+    const isValidPassword = bcrypt.compareSync(password, user.password);
+    if (!isValidPassword) {
+      return res.status(400).json({
+        succes: false,
+        message: "email or password invalid",
+      });
+    }
+    const token = jwt.sign(
+      {
+        userId: user.id,
+        roleName: user.role.name,
+      },
+      process.env.JWT_SECRET as string,
+      {
+        expiresIn: "5h",
+      }
+    );
+
+    return res.status(201).json({
+      succes: true,
+      message: "User logged succesfully",
+      token: token,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "User cant be logged",
       error: error,
     });
   }

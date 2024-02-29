@@ -105,7 +105,7 @@ export const updateUserById = async (req: Request, res: Response) => {
   }
 };
 
-//Funcion borrar usuario
+//FUNCION BORRAR USUARIO POR ID
 
 export const deleteUserById = async (req: Request, res: Response) => {
   try {
