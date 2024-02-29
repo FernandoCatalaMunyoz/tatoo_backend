@@ -54,4 +54,4 @@ app.put("/api/users/:id", updateUserById);
 app.delete("/api/users/:id", deleteUserById);
 
 //services routes
-app.post("/api/auth/services", service);
+app.post("/api/auth/services", auth, isSuperAdmin, service);
