@@ -14,6 +14,7 @@ import {
 import { User } from "./models/User";
 import { auth } from "./middlewares/auth";
 import { isSuperAdmin } from "./middlewares/isSuperAdmin";
+import { service } from "./controllers/serviceController";
 
 const app: Application = express();
 
@@ -51,3 +52,6 @@ app.get("/api/users", auth, isSuperAdmin, getUsers);
 app.get("/api/users/:id", getUserById);
 app.put("/api/users/:id", updateUserById);
 app.delete("/api/users/:id", deleteUserById);
+
+//services routes
+app.post("/api/auth/services", service);
