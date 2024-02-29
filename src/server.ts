@@ -13,6 +13,7 @@ import {
 } from "./controllers/userController";
 import { User } from "./models/User";
 import { auth } from "./middlewares/auth";
+import { isSuperAdmin } from "./middlewares/isSuperAdmin";
 
 const app: Application = express();
 
@@ -42,11 +43,11 @@ app.post("/api/auth/login", login);
 
 //roles routes
 
-app.post("/api/roles", createRole);
+app.post("/api/roles", auth, isSuperAdmin, createRole);
 
 //user routes
 
-app.get("/api/users", auth, getUsers);
+app.get("/api/users", auth, isSuperAdmin, getUsers);
 app.get("/api/users/:id", getUserById);
 app.put("/api/users/:id", updateUserById);
 app.delete("/api/users/:id", deleteUserById);
