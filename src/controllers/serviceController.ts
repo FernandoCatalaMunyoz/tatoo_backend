@@ -25,3 +25,23 @@ export const service = async (req: Request, res: Response) => {
     });
   }
 };
+
+//VER TODOS LOS SERVICIOS
+
+export const getServices = async (req: Request, res: Response) => {
+  try {
+    const services = await Service.find();
+
+    res.status(201).json({
+      succes: true,
+      message: "services retrieved succesfully",
+      data: services,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Service coudlnt be retrieved",
+      error: error,
+    });
+  }
+};
