@@ -4,13 +4,13 @@ import { Service } from "../models/Service";
 //CREACION SERVICIOS
 export const service = async (req: Request, res: Response) => {
   try {
-    const name = req.body.service_name;
+    const name = req.body.services_name;
     const description = req.body.description;
 
     const newService = await Service.create({
-      serviceName: name,
+      servicesName: name,
       description: description,
-    });
+    }).save();
 
     res.status(201).json({
       succes: true,
