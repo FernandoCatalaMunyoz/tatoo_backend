@@ -7,7 +7,7 @@ import { createRole } from "./controllers/roleController";
 import { login, register } from "./controllers/authControllers";
 import {
   deleteUserById,
-  getUserById,
+  getProfile,
   getUsers,
   updateUserById,
 } from "./controllers/userController";
@@ -39,7 +39,7 @@ startServer();
 
 //authentication routes
 
-app.post("/api/auth/register", register);
+app.post("/api/register", register);
 app.post("/api/auth/login", login);
 
 //roles routes
@@ -49,9 +49,9 @@ app.post("/api/roles", auth, isSuperAdmin, createRole);
 //user routes
 
 app.get("/api/users", auth, isSuperAdmin, getUsers);
-app.get("/api/users/:id", getUserById);
-app.put("/api/users/:id", updateUserById);
-app.delete("/api/users/:id", deleteUserById);
+app.get("/api/users/profile", auth, getProfile);
+app.put("/api/users/:id", auth, isSuperAdmin, updateUserById);
+app.delete("/api/users/:id", auth, isSuperAdmin, deleteUserById);
 
 //services routes
 app.post("/api/auth/services", auth, isSuperAdmin, service);

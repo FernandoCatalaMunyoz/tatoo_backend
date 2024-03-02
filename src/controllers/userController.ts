@@ -30,32 +30,32 @@ export const getUsers = async (req: Request, res: Response) => {
 
 // FUNCION BUSQUEDA USER POR ID
 
-export const getUserById = async (req: Request, res: Response) => {
-  try {
-    const userId = req.params.id;
-    const user = await User.findOneBy({
-      id: parseInt(userId),
-    });
-    if (!userId) {
-      return res.status(404).json({
-        succes: true,
-        message: "User not found",
-      });
-    }
+// export const getUserById = async (req: Request, res: Response) => {
+//   try {
+//     const userId = req.params.id;
+//     const user = await User.findOneBy({
+//       id: parseInt(userId),
+//     });
+//     if (!userId) {
+//       return res.status(404).json({
+//         succes: true,
+//         message: "User not found",
+//       });
+//     }
 
-    res.status(201).json({
-      succes: true,
-      message: "User retrieved succesfully",
-      data: user,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "User cant be retrieved",
-      error: error,
-    });
-  }
-};
+//     res.status(201).json({
+//       succes: true,
+//       message: "User retrieved succesfully",
+//       data: user,
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       success: false,
+//       message: "User cant be retrieved",
+//       error: error,
+//     });
+//   }
+// };
 
 //ACTUALIZAR DATO USUARIO POR ID
 
@@ -132,6 +132,53 @@ export const deleteUserById = async (req: Request, res: Response) => {
     res.status(500).json({
       succes: true,
       message: "User cant be deleted",
+    });
+  }
+};
+
+//VER PERFIL DE USUARIO
+
+export const getProfile = async (req: Request, res: Response) => {
+  try {
+    const userId = req.tokenData.userId;
+    const name = req.body.first_name;
+    const lastName = req.body.last_name;
+
+    const user = await User.findOne({
+      where: {
+        id: userId,
+      },
+      relations: {
+        role: true,
+      },
+      select: {
+        id: true,
+        firstName: name,
+        lastName: lastName,
+        email: true,
+        role: {
+          id: true,
+          name: true,
+        },
+      },
+    });
+    if (!user) {
+      return res.status(404).json({
+        succes: true,
+        message: "User not found",
+        data: user,
+      });
+    }
+
+    res.status(201).json({
+      succes: true,
+      message: "User retrieved",
+      data: user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      succes: true,
+      message: "User cant be retrieved",
     });
   }
 };
