@@ -182,3 +182,51 @@ export const getProfile = async (req: Request, res: Response) => {
     });
   }
 };
+
+//MODIFICAR DATOS USUARIO
+
+export const updateProfile = async (req: Request, res: Response) => {
+  try {
+    const firstName = req.body.first_name;
+    const lastName = req.body.last_name;
+    const email = req.body.email;
+    const userId = req.tokenData.userId;
+    // if (!firstName) {
+    //   return res.status(400).json({
+    //     succes: false,
+    //     message: "Name needed",
+    //   });
+    // }
+    const userUpdated = User.update(
+      {
+        id: userId,
+      },
+      {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+      }
+    );
+    const validEmail = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+    if (email) {
+      if (!validEmail.test(email)) {
+        return res.status(400).json({
+          success: false,
+          message: "format email invalid",
+        });
+      }
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "User updated",
+      data: userUpdated,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "User cant be update",
+      error: error,
+    });
+  }
+};

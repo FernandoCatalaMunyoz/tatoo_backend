@@ -9,6 +9,7 @@ import {
   deleteUserById,
   getProfile,
   getUsers,
+  updateProfile,
   updateUserById,
 } from "./controllers/userController";
 import { User } from "./models/User";
@@ -50,7 +51,7 @@ app.post("/api/roles", auth, isSuperAdmin, createRole);
 
 app.get("/api/users", auth, isSuperAdmin, getUsers);
 app.get("/api/users/profile", auth, getProfile);
-app.put("/api/users/:id", auth, isSuperAdmin, updateUserById);
+app.put("/api/users/profile", auth, updateProfile);
 app.delete("/api/users/:id", auth, isSuperAdmin, deleteUserById);
 
 //services routes
