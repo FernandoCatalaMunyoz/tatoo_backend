@@ -23,5 +23,5 @@ export class Appointment extends BaseEntity {
 
   @ManyToOne(() => User, (user) => user.appointment)
   @JoinColumn({ name: "user_id" })
-  user!: User;
+  userService!: User;
 }

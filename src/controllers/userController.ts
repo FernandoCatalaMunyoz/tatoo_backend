@@ -191,12 +191,7 @@ export const updateProfile = async (req: Request, res: Response) => {
     const lastName = req.body.last_name;
     const email = req.body.email;
     const userId = req.tokenData.userId;
-    // if (!firstName) {
-    //   return res.status(400).json({
-    //     succes: false,
-    //     message: "Name needed",
-    //   });
-    // }
+
     const userUpdated = User.update(
       {
         id: userId,
