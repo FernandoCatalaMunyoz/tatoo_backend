@@ -16,7 +16,11 @@ import { User } from "./models/User";
 import { auth } from "./middlewares/auth";
 import { isSuperAdmin } from "./middlewares/isSuperAdmin";
 import { getServices, service } from "./controllers/serviceController";
-import { getDate } from "./controllers/appointmentController";
+import {
+  createAppointment,
+  getAppointmentbyId,
+  updateAppointment,
+} from "./controllers/appointmentController";
 
 const app: Application = express();
 
@@ -60,4 +64,6 @@ app.post("/api/auth/services", auth, isSuperAdmin, service);
 app.get("/api/auth/services", getServices);
 
 //appointments routes
-app.post("/api/appointments", auth, getDate);
+app.post("/api/appointments", auth, createAppointment);
+app.put("/api/appointments", auth, updateAppointment);
+app.get("/api/appointments/:id", getAppointmentbyId);

@@ -2,8 +2,11 @@
 
 import { Request, Response } from "express";
 import { Appointment } from "../models/Appointment";
+import { service } from "./serviceController";
+import { stringify } from "querystring";
 
-export const getDate = async (req: Request, res: Response) => {
+//Funcion para generar una cita para el usuario loggeado
+export const createAppointment = async (req: Request, res: Response) => {
   try {
     const userId = req.tokenData.userId;
     const service = req.body.service_id;
@@ -24,6 +27,88 @@ export const getDate = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: "Service cant be booked",
+      error: error,
+    });
+  }
+};
+
+//Funcion para actualizar mi cita
+
+export const updateAppointment = async (req: Request, res: Response) => {
+  try {
+    const userId = req.tokenData.userId;
+    const date = req.body.appointment_date;
+    const appointmentId = req.body.id;
+
+    const appointmentToUpdate = Appointment.findOne({
+      where: {
+        id: appointmentId,
+        userService: { id: userId },
+      },
+    });
+    if (!appointmentToUpdate) {
+      res.status(400).json({
+        success: true,
+        message: "New date is needed",
+      });
+    }
+
+    const appointmentUpdated = await Appointment.update(
+      {
+        id: appointmentId,
+      },
+      {
+        appointmentDate: date,
+      }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Service updated",
+      data: appointmentUpdated,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Service cant be updated",
+      error: error,
+    });
+  }
+};
+
+//Funcion recuperar cita
+
+export const getAppointmentbyId = async (req: Request, res: Response) => {
+  try {
+    const appointmentId = req.params.id;
+    const appointment = await Appointment.findOne({
+      where: { id: parseInt(appointmentId) },
+      relations: { userService: true },
+      select: {
+        id: true,
+        appointmentDate: true,
+        userService: {
+          firstName: true,
+          lastName: true,
+        },
+      },
+    });
+    if (!appointment) {
+      return res.status(404).json({
+        succes: false,
+        message: "Appointment notfound",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Service retrieved",
+      data: appointment,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Service cant be retrieved",
       error: error,
     });
   }

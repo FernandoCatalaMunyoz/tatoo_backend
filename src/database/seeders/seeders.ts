@@ -81,7 +81,7 @@ const userSeedDatabase = async () => {
     await AppDataSource.destroy();
   }
 };
-
+//creacion de los servicios
 const servicesSeedDatabase = async () => {
   try {
     await AppDataSource.initialize();
