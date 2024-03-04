@@ -2,6 +2,7 @@ import { Role } from "../../models/Role";
 import { Service } from "../../models/Service";
 import { User } from "../../models/User";
 import { AppDataSource } from "../db";
+import { faker } from "@faker-js/faker";
 
 import bcrypt from "bcrypt";
 
@@ -33,7 +34,7 @@ const roleSeedDatabase = async () => {
 const userSeedDatabase = async () => {
   try {
     await AppDataSource.initialize();
-
+    // creacion usuario "user"
     const user = new User();
     user.firstName = "user";
     user.lastName = "user";
@@ -42,7 +43,7 @@ const userSeedDatabase = async () => {
     user.role = new Role();
     user.role.id = 1;
     await user.save();
-
+    // creacion usuario "admin"
     const admin = new User();
     admin.firstName = "admin";
     admin.lastName = "admin";
@@ -51,7 +52,7 @@ const userSeedDatabase = async () => {
     admin.role = new Role();
     admin.role.id = 2;
     await admin.save();
-
+    // creacion usuario "super_admin"
     const super_admin = new User();
     super_admin.firstName = "super_admin";
     super_admin.lastName = "super_admin";
@@ -60,6 +61,20 @@ const userSeedDatabase = async () => {
     super_admin.role = new Role();
     super_admin.role.id = 3;
     await super_admin.save();
+    //creacion usuarios falsos
+    const generateFakeUser = () => {
+      const user = new User();
+      user.firstName = faker.person.firstName();
+      user.lastName = faker.person.lastName();
+      user.email = faker.internet.email();
+      user.password = bcrypt.hashSync("123456", 8);
+      user.role = new Role();
+      user.role.id = 1;
+
+      return user;
+    };
+    const fakeUsers = Array.from({ length: 15 }, generateFakeUser);
+    await User.save(fakeUsers);
   } catch (error) {
     console.log(error);
   } finally {
@@ -100,6 +115,15 @@ const servicesSeedDatabase = async () => {
     service5.description =
       "Además de nuestros servicios de aplicación, ofrecemos una selección de piercings y otros artículos relacionados con el arte corporal. Los clientes pueden adquirir productos de calidad para complementar su estilo único.";
     await service5.save();
+  } catch (error) {
+    console.log(error);
+  } finally {
+    await AppDataSource.destroy();
+  }
+};
+
+const appointmetSeedDatabase = async () => {
+  try {
   } catch (error) {
     console.log(error);
   } finally {
