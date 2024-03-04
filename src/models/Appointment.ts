@@ -9,7 +9,7 @@ import {
 import { Service } from "./Service";
 import { User } from "./User";
 
-@Entity()
+@Entity("appointments")
 export class Appointment extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;

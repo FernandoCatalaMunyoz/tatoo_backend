@@ -46,7 +46,7 @@ app.post("/api/auth/login", login);
 
 //roles routes
 
-app.post("/api/roles", auth, isSuperAdmin, createRole);
+app.post("/api/roles", createRole);
 
 //user routes
 
@@ -60,4 +60,4 @@ app.post("/api/auth/services", auth, isSuperAdmin, service);
 app.get("/api/auth/services", getServices);
 
 //appointments routes
-app.post("/api/appointments", getDate);
+app.post("/api/appointments", auth, getDate);

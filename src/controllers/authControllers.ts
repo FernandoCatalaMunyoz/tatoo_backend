@@ -112,7 +112,7 @@ export const login = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(400).json({
         succes: false,
-        message: "email or password invalid",
+        message: "user not found",
       });
     }
 
@@ -130,7 +130,7 @@ export const login = async (req: Request, res: Response) => {
       },
       process.env.JWT_SECRET as string,
       {
-        expiresIn: "5h",
+        expiresIn: "520h",
       }
     );
 

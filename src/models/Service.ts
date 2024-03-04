@@ -18,6 +18,6 @@ export class Service extends BaseEntity {
   @Column({ name: "description" })
   description!: string;
 
-  @OneToMany(() => Appointment, (appointment) => appointment.service)
+  @OneToMany(() => Appointment, (appointments) => appointments.service)
   appointments!: Appointment[];
 }
