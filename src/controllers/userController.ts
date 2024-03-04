@@ -4,6 +4,14 @@ import { User } from "../models/User";
 //FUNCION PARA TRAER TODOS LOS USUARIOS
 export const getUsers = async (req: Request, res: Response) => {
   try {
+    let limit = Number(req.query.limit) || 10;
+    const page = Number(req.query.page) || 1;
+    const skip = (page - 1) * limit;
+
+    if (limit > 100) {
+      limit = 10;
+    }
+
     const users = await User.find({
       select: {
         firstName: true,
@@ -12,6 +20,8 @@ export const getUsers = async (req: Request, res: Response) => {
         createdAt: true,
         updatedAt: true,
       },
+      take: limit,
+      skip: skip,
     });
 
     res.status(201).json({
