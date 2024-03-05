@@ -19,6 +19,7 @@ import { getServices, service } from "./controllers/serviceController";
 import {
   createAppointment,
   getAppointmentbyId,
+  getUserAppointments,
   updateAppointment,
 } from "./controllers/appointmentController";
 
@@ -66,4 +67,5 @@ app.get("/api/auth/services", getServices);
 //appointments routes
 app.post("/api/appointments", auth, createAppointment);
 app.put("/api/appointments", auth, updateAppointment);
-app.get("/api/appointments/:id", getAppointmentbyId);
+app.get("/api/appointments/:id", auth, getAppointmentbyId);
+app.get("/api/appointments", auth, getUserAppointments);

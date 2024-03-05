@@ -43,12 +43,6 @@ export class Appointments1708972222075 implements MigrationInterface {
             onDelete: "CASCADE",
           },
         ],
-        uniques: [
-          new TableUnique({
-            name: "user_service_unique",
-            columnNames: ["user_id", "service_id"],
-          }),
-        ],
       }),
       true
     );

@@ -37,8 +37,8 @@ export const createAppointment = async (req: Request, res: Response) => {
 export const updateAppointment = async (req: Request, res: Response) => {
   try {
     const userId = req.tokenData.userId;
-    const date = req.body.appointment_date;
-    const appointmentId = req.body.id;
+    const date = req.body.appointmentDate;
+    const appointmentId = req.body.appointmentId;
 
     const appointmentToUpdate = Appointment.findOne({
       where: {
@@ -109,6 +109,41 @@ export const getAppointmentbyId = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: "Service cant be retrieved",
+      error: error,
+    });
+  }
+};
+
+//Funcion ver citas de usuario loggeado
+
+export const getUserAppointments = async (req: Request, res: Response) => {
+  try {
+    const userId = req.body.userId;
+
+    const userAppointments = await Appointment.find({
+      where: {
+        id: userId,
+      },
+      relations: {
+        userService: true,
+      },
+      select: {
+        userService: {
+          firstName: true,
+        },
+      },
+    });
+
+    console.log(userAppointments);
+    res.status(200).json({
+      success: true,
+      message: "Services retrieved",
+      data: userAppointments,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Services cant be retrieved",
       error: error,
     });
   }
