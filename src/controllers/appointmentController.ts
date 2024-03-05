@@ -122,7 +122,7 @@ export const getUserAppointments = async (req: Request, res: Response) => {
 
     const userAppointments = await Appointment.find({
       where: {
-        id: userId,
+        userService: { id: userId },
       },
       relations: {
         userService: true,
@@ -130,6 +130,7 @@ export const getUserAppointments = async (req: Request, res: Response) => {
       select: {
         userService: {
           firstName: true,
+          lastName: true,
         },
       },
     });
