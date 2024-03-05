@@ -1,3 +1,4 @@
+import { Appointment } from "../../models/Appointment";
 import { Role } from "../../models/Role";
 import { Service } from "../../models/Service";
 import { User } from "../../models/User";
@@ -122,8 +123,23 @@ const servicesSeedDatabase = async () => {
   }
 };
 
-const appointmetSeedDatabase = async () => {
+const appointmentSeedDatabase = async () => {
   try {
+    await AppDataSource.initialize();
+
+    const generateFakeAppointment = () => {
+      const appointment = new Appointment();
+
+      appointment.appointmentDate = faker.date.future({ years: 1 });
+      appointment.service = new Service();
+      appointment.service.id = faker.number.int({ min: 1, max: 5 });
+      appointment.userService = new User();
+      appointment.userService.id = faker.number.int({ min: 1, max: 18 });
+
+      return appointment;
+    };
+    const fakeAppointment = Array.from({ length: 50 }, generateFakeAppointment);
+    await Appointment.save(fakeAppointment);
   } catch (error) {
     console.log(error);
   } finally {
@@ -135,5 +151,6 @@ const startSeeder = async () => {
   await roleSeedDatabase();
   await userSeedDatabase();
   await servicesSeedDatabase();
+  await appointmentSeedDatabase();
 };
 startSeeder();
