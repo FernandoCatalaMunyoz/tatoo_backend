@@ -114,7 +114,7 @@ export const updateUserById = async (req: Request, res: Response) => {
     });
   }
 };
-
+///////////////////////////////////////////////////////////////////////////
 //FUNCION BORRAR USUARIO POR ID
 
 export const deleteUserById = async (req: Request, res: Response) => {
@@ -145,7 +145,7 @@ export const deleteUserById = async (req: Request, res: Response) => {
     });
   }
 };
-
+///////////////////////////////////////////////////////////////////////////
 //VER PERFIL DE USUARIO
 
 export const getProfile = async (req: Request, res: Response) => {
@@ -192,7 +192,7 @@ export const getProfile = async (req: Request, res: Response) => {
     });
   }
 };
-
+///////////////////////////////////////////////////////////////////////////
 //MODIFICAR DATOS USUARIO
 
 export const updateProfile = async (req: Request, res: Response) => {
@@ -222,7 +222,7 @@ export const updateProfile = async (req: Request, res: Response) => {
       }
     }
 
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       message: "User updated",
       data: userUpdated,

@@ -16,6 +16,42 @@
 
 El departamento de producto nos ha encomendado desarrollar el backend correspondiente al sistema de gestión de citas para un estudio de tatuajes.
 
+Para ello tendremos que crear una base de datos y conectar nuestra API a ella.
+
+La API tendrá que tener los sigueintes endpoints minimos:
+
+AUTH:
+
+- Registro de usuario:
+  - POST: /api/auth/register
+- Inicio sesión:
+  - POST: /api/auth/login
+
+USERS:
+
+- Ver todos los usuarios:
+  - GET: /api/users (super_admin)
+- Ver perfil de usuario:
+  - GET: /api/users/profile
+- Modificar datos de usuario:
+  - PUT: /api/users/profile
+
+APPOINTMENTS:
+
+- Crear cita:
+  - POST: /api/appointments
+- Actualizar cita:
+  - PUT: /api/appointments
+- Recuperar cita por Id:
+  - GET: /api/appointments/:id
+- Ver mis propias citas:
+  - GET: /api/appointments
+
+SERVICES:
+
+- Ver todos los servicios:
+  - GET: /api/services
+
 ## Stack
 
 Tecnologías utilizadas:
@@ -31,7 +67,16 @@ Tecnologías utilizadas:
 1. Clonar el repositorio
    `git clone https://github.com/FernandoCatalaMunyoz/tatoo_backend.git`
 2. `npm install`
-3. Conectar repositorio con la base de datos
+3. Conectar repositorio con la base de datos usando el archivo `.env.sample` como plantilla
+   ```
+   PORT=
+   #conexion a DB
+   DB_USER=
+   DB_PASSWORD=
+   DB_PORT=
+   DB_HOST=
+   DB_DATABASE=
+   ```
 4. Añadimos los scripts al package.json de las migraciones y los seeders:
 
 - `"run-migrations": "typeorm-ts-node-commonjs migration:run -d ./src/database/db.ts"`

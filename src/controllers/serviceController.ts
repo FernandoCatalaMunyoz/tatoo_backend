@@ -25,7 +25,7 @@ export const service = async (req: Request, res: Response) => {
     });
   }
 };
-
+///////////////////////////////////////////////////////////////////////////
 //VER TODOS LOS SERVICIOS
 
 export const getServices = async (req: Request, res: Response) => {

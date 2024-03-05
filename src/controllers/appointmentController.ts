@@ -2,8 +2,6 @@
 
 import { Request, Response } from "express";
 import { Appointment } from "../models/Appointment";
-import { service } from "./serviceController";
-import { stringify } from "querystring";
 
 //Funcion para generar una cita para el usuario loggeado
 export const createAppointment = async (req: Request, res: Response) => {
@@ -31,7 +29,7 @@ export const createAppointment = async (req: Request, res: Response) => {
     });
   }
 };
-
+///////////////////////////////////////////////////////////////////////////
 //Funcion para actualizar mi cita
 
 export const updateAppointment = async (req: Request, res: Response) => {
@@ -75,7 +73,7 @@ export const updateAppointment = async (req: Request, res: Response) => {
     });
   }
 };
-
+///////////////////////////////////////////////////////////////////////////
 //Funcion recuperar cita
 
 export const getAppointmentbyId = async (req: Request, res: Response) => {

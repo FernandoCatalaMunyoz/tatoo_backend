@@ -68,7 +68,7 @@ export const register = async (req: Request, res: Response) => {
     });
   }
 };
-
+///////////////////////////////////////////////////////////////////////////
 //LOGIN
 
 export const login = async (req: Request, res: Response) => {
@@ -110,7 +110,7 @@ export const login = async (req: Request, res: Response) => {
     console.log(user);
 
     if (!user) {
-      return res.status(400).json({
+      return res.status(404).json({
         succes: false,
         message: "user not found",
       });

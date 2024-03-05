@@ -2,7 +2,7 @@ import express, { Application } from "express";
 import dotenv from "dotenv";
 dotenv.config();
 import { AppDataSource } from "./database/db";
-import { error } from "console";
+
 import { createRole } from "./controllers/roleController";
 import { login, register } from "./controllers/authControllers";
 import {
@@ -10,9 +10,8 @@ import {
   getProfile,
   getUsers,
   updateProfile,
-  updateUserById,
 } from "./controllers/userController";
-import { User } from "./models/User";
+
 import { auth } from "./middlewares/auth";
 import { isSuperAdmin } from "./middlewares/isSuperAdmin";
 import { getServices, service } from "./controllers/serviceController";

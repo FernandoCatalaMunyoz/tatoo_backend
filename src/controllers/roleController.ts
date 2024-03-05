@@ -7,7 +7,7 @@ export const getRoles = (req: Request, res: Response) => {
     message: "Roles retrieved succesfully",
   });
 };
-//////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 export const createRole = async (req: Request, res: Response) => {
   try {
     const name = req.body.name;
@@ -51,12 +51,5 @@ export const updateRole = (req: Request, res: Response) => {
     //5. Reespuesta
     succes: true,
     message: "Role updated",
-  });
-};
-///////////////////////////////////////////////////////////////////////////////////////////////////
-export const deleteRole = (req: Request, res: Response) => {
-  res.status(200).json({
-    succes: true,
-    message: "Role deleted",
   });
 };
