@@ -14,21 +14,13 @@
 
 # Objetivo
 
-Realizar una API funcional conectada a una base de datos recreando un estudio de tatuajes.
+El departamento de producto nos ha encomendado desarrollar el backend correspondiente al sistema de gestión de citas para un estudio de tatuajes.
 
 ## Stack
 
 Tecnologías utilizadas:
 
-<div align="center">
-
-<a href="https://www.expressjs.com/">
-    <img src= "https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB"/>
-</a>
-<a href="https://nodejs.org/es/">
-    <img src= "https://img.shields.io/badge/node.js-026E00?style=for-the-badge&logo=node.js&logoColor=white"/>
-</a>
- </div>
+![MYSQL](./capturas/mysql-logo.svg){width=80} - ![EXPRESS](./capturas/express-109.svg){width=80} - ![TYPESCRIPT](./capturas/typescript.svg){width=40} - ![NODEJS](./capturas/nodejs.svg){width=80}
 
 ## Diagrama BD
 
@@ -40,10 +32,36 @@ Tecnologías utilizadas:
    `git clone https://github.com/FernandoCatalaMunyoz/tatoo_backend.git`
 2. `npm install`
 3. Conectar repositorio con la base de datos
-4. Ejecutamos las migraciones:
+4. Añadimos los scripts al package.json de las migraciones y los seeders:
+
+- `"run-migrations": "typeorm-ts-node-commonjs migration:run -d ./src/database/db.ts"`
+
+- `"revert-migrations": "typeorm-ts-node-commonjs migration:revert -d ./src/database/db.ts"`
+
+- `"seeder": "ts-node ./src/database/seeders/seeders.ts"`
+
+5. Ejecutamos las migraciones:
    `npm run run-migrations`
-5. Ejecutamos los seeders:
+6. Ejecutamos los seeders:
    `npm run seeder`
+7. Arrancamos el servidor:
+   `npm run dev`
+
+## Usuarios y contraseñas:
+
+Email y password de lso 3 usuarios básicos:
+
+    - User (Role user):
+        email: user@user.com
+        password: 123456
+
+    - Admin (Role admin):
+        email: admin@admin.com
+        password: 123456
+
+    - Super_admin (Role super_admin):
+        email: super_admin@super_admin.com
+        password: 123456
 
 ## ENDPOINTS
 
