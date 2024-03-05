@@ -85,6 +85,8 @@ Tecnologías utilizadas:
 
 - `"seeder": "ts-node ./src/database/seeders/seeders.ts"`
 
+- `"dev": "nodemon ./src/server.ts"`
+
 5. Ejecutamos las migraciones:
    `npm run run-migrations`
 6. Ejecutamos los seeders:
