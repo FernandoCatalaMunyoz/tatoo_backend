@@ -9,8 +9,8 @@ import { stringify } from "querystring";
 export const createAppointment = async (req: Request, res: Response) => {
   try {
     const userId = req.tokenData.userId;
-    const service = req.body.service_id;
-    const date = req.body.appointment_date;
+    const service = req.body.serviceId;
+    const date = req.body.appointmentDate;
 
     const newAppointment = await Appointment.create({
       appointmentDate: date,
@@ -118,7 +118,7 @@ export const getAppointmentbyId = async (req: Request, res: Response) => {
 
 export const getUserAppointments = async (req: Request, res: Response) => {
   try {
-    const userId = req.body.userId;
+    const userId = req.tokenData.userId;
 
     const userAppointments = await Appointment.find({
       where: {
@@ -134,7 +134,6 @@ export const getUserAppointments = async (req: Request, res: Response) => {
       },
     });
 
-    console.log(userAppointments);
     res.status(200).json({
       success: true,
       message: "Services retrieved",
