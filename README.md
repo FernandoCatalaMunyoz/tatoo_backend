@@ -56,7 +56,7 @@ SERVICES:
 
 Tecnologías utilizadas:
 
-![MYSQL](./capturas/mysql-logo.svg){width=80} - ![EXPRESS](./capturas/express-109.svg){width=80} - ![TYPESCRIPT](./capturas/typescript.svg){width=40} - ![NODEJS](./capturas/nodejs.svg){width=80}
+![MYSQL](./capturas/mysql-logo.svg){width=80} ![EXPRESS](./capturas/express-109.svg){width=80} ![TYPESCRIPT](./capturas/typescript.svg){width=40} ![NODEJS](./capturas/nodejs.svg){width=80}
 
 ## Diagrama BD
 
