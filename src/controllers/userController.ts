@@ -14,6 +14,7 @@ export const getUsers = async (req: Request, res: Response) => {
 
     const users = await User.find({
       select: {
+        id: true,
         firstName: true,
         lastName: true,
         email: true,
@@ -134,8 +135,8 @@ export const getProfile = async (req: Request, res: Response) => {
       },
       select: {
         id: true,
-        firstName: name,
-        lastName: lastName,
+        firstName: true,
+        lastName: true,
         email: true,
         role: {
           id: true,
@@ -168,8 +169,8 @@ export const getProfile = async (req: Request, res: Response) => {
 
 export const updateProfile = async (req: Request, res: Response) => {
   try {
-    const firstName = req.body.first_name;
-    const lastName = req.body.last_name;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
     const email = req.body.email;
     const userId = req.tokenData.userId;
 
@@ -198,6 +199,7 @@ export const updateProfile = async (req: Request, res: Response) => {
       message: "User updated",
       data: userUpdated,
     });
+    console.log(userUpdated, "usuario actualizado");
   } catch (error) {
     res.status(500).json({
       success: false,

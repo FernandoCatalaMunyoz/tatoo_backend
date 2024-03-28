@@ -58,7 +58,7 @@ const userSeedDatabase = async () => {
     super_admin.firstName = "super_admin";
     super_admin.lastName = "super_admin";
     super_admin.email = "super_admin@super_admin.com";
-    super_admin.password = bcrypt.hashSync("123456", 8); // 123456
+    super_admin.password = bcrypt.hashSync("Aa123456", 8); // 123456
     super_admin.role = new Role();
     super_admin.role.id = 3;
     await super_admin.save();
@@ -82,7 +82,7 @@ const userSeedDatabase = async () => {
     await AppDataSource.destroy();
   }
 };
-//creacion de los servicios
+// creacion de los servicios
 const servicesSeedDatabase = async () => {
   try {
     await AppDataSource.initialize();
@@ -149,7 +149,7 @@ const appointmentSeedDatabase = async () => {
 
 const startSeeder = async () => {
   await roleSeedDatabase();
-  await userSeedDatabase();
+  // await userSeedDatabase();
   await servicesSeedDatabase();
   await appointmentSeedDatabase();
 };

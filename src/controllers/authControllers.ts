@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 //REGISTER
 export const register = async (req: Request, res: Response) => {
   try {
+    console.log(req.body, "Hola");
     {
       const name = req.body.first_name;
       const last_name = req.body.last_name;
@@ -101,13 +102,14 @@ export const login = async (req: Request, res: Response) => {
         id: true,
         password: true,
         email: true,
+        firstName: true,
+        lastName: true,
         role: {
           id: true,
           name: true,
         },
       },
     });
-    console.log(user);
 
     if (!user) {
       return res.status(404).json({
@@ -127,13 +129,16 @@ export const login = async (req: Request, res: Response) => {
       {
         userId: user.id,
         roleName: user.role.name,
+        name: user.firstName,
+        lastName: user.lastName,
       },
       process.env.JWT_SECRET as string,
       {
         expiresIn: "520h",
       }
     );
-
+    const decoded = jwt.decode(token);
+    console.log(decoded, "token");
     return res.status(201).json({
       succes: true,
       message: "User logged succesfully",

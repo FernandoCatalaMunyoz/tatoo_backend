@@ -1,6 +1,7 @@
 export type TokenData = {
   userId: number;
   roleName: string;
+  firtsName: string;
 };
 
 declare global {

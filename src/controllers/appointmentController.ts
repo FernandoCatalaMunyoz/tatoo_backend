@@ -80,7 +80,10 @@ export const getAppointmentbyId = async (req: Request, res: Response) => {
   try {
     const appointmentId = req.params.id;
     const appointment = await Appointment.findOne({
-      where: { id: parseInt(appointmentId) },
+      where: {
+        id: parseInt(appointmentId),
+        userService: {},
+      },
       relations: { userService: true },
       select: {
         id: true,
