@@ -16,6 +16,7 @@ import { isSuperAdmin } from "./middlewares/isSuperAdmin";
 import { getServices, service } from "./controllers/serviceController";
 import {
   createAppointment,
+  deleteAppointment,
   getAppointmentbyId,
   getUserAppointments,
   updateAppointment,
@@ -59,5 +60,6 @@ app.post("/api/appointments", auth, createAppointment);
 app.put("/api/appointments", auth, isSuperAdmin, updateAppointment);
 app.get("/api/appointments/:id", auth, getAppointmentbyId);
 app.get("/api/appointments", auth, getUserAppointments);
+app.delete("/api/appointments/:id", auth, deleteAppointment);
 
 export default app;

@@ -2,17 +2,18 @@
 
 import { Request, Response } from "express";
 import { Appointment } from "../models/Appointment";
+import { service } from "./serviceController";
 
 //Funcion para generar una cita para el usuario loggeado
 export const createAppointment = async (req: Request, res: Response) => {
   try {
     const userId = req.tokenData.userId;
-    const service = req.body.serviceId;
+    const serviceId = req.body.serviceId;
     const date = req.body.appointmentDate;
 
     const newAppointment = await Appointment.create({
       appointmentDate: date,
-      service: service,
+      service: serviceId,
       userService: { id: userId },
     }).save();
 
@@ -84,10 +85,11 @@ export const getAppointmentbyId = async (req: Request, res: Response) => {
         id: parseInt(appointmentId),
         userService: {},
       },
-      relations: { userService: true },
+      relations: { userService: true, service: true },
       select: {
         id: true,
         appointmentDate: true,
+
         userService: {
           firstName: true,
           lastName: true,
@@ -127,8 +129,10 @@ export const getUserAppointments = async (req: Request, res: Response) => {
       },
       relations: {
         userService: true,
+        service: true,
       },
       select: {
+        id: true,
         userService: {
           firstName: true,
           lastName: true,
@@ -148,4 +152,25 @@ export const getUserAppointments = async (req: Request, res: Response) => {
       error: error,
     });
   }
+};
+
+//Funcion Borrar cita por id
+
+export const deleteAppointment = async (req: Request, res: Response) => {
+  const userId = req.tokenData.userId;
+  const id = req.params.id;
+
+  const appointmentToDelete: any = await Appointment.findOne({
+    where: {
+      id: parseInt(id),
+    },
+    select: {
+      appointmentDate: true,
+    },
+  });
+  await Appointment.delete(appointmentToDelete);
+  res.status(201).json({
+    succes: true,
+    message: "Appointment deleted",
+  });
 };

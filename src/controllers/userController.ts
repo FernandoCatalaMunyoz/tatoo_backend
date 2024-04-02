@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { User } from "../models/User";
+import { Role } from "../models/Role";
 
 //FUNCION PARA TRAER TODOS LOS USUARIOS
 export const getUsers = async (req: Request, res: Response) => {
@@ -96,7 +97,13 @@ export const deleteUserById = async (req: Request, res: Response) => {
     const userToRemove: any = await User.findOneBy({
       id: parseInt(userId),
     });
-
+    console.log(userToRemove);
+    if (userToRemove.roleName === "super_admin") {
+      res.status(400).json({
+        succes: false,
+        message: "super_admin cant be deleted",
+      });
+    }
     if (!userToRemove) {
       res.status(404).json({
         succes: false,
