@@ -132,7 +132,9 @@ export const getUserAppointments = async (req: Request, res: Response) => {
         service: true,
       },
       select: {
+        appointmentDate: true,
         id: true,
+        service: { servicesName: true },
         userService: {
           firstName: true,
           lastName: true,
@@ -168,6 +170,7 @@ export const deleteAppointment = async (req: Request, res: Response) => {
       appointmentDate: true,
     },
   });
+  console.log(appointmentToDelete, "cita a borrar");
   await Appointment.delete(appointmentToDelete);
   res.status(201).json({
     succes: true,
