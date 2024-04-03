@@ -131,6 +131,7 @@ export const login = async (req: Request, res: Response) => {
         roleName: user.role.name,
         name: user.firstName,
         lastName: user.lastName,
+        email: user.email,
       },
       process.env.JWT_SECRET as string,
       {
